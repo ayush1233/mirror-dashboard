@@ -8,6 +8,7 @@ import { JsonEditor } from "@/components/json/JsonEditor";
 import { JsonViewer } from "@/components/json/JsonViewer";
 import { JsonDiffViewer } from "@/components/json/JsonDiffViewer";
 import { useToast } from "@/hooks/use-toast";
+import { exportPdfFromJson } from "@/lib/export";
 
 interface HeaderRow {
   id: number;
@@ -235,6 +236,9 @@ export function RunMirrorTestPage() {
               <div className="space-x-2">
                 <Button type="button" size="sm" variant="outline" onClick={exportAsJson}>
                   Export as JSON
+                </Button>
+                <Button type="button" size="sm" variant="outline" onClick={() => exportPdfFromJson("mirror-test.pdf", "Mirror test run", { prod: prodResponse, uat: uatResponse })}>
+                  Export as PDF
                 </Button>
               </div>
             </CardContent>

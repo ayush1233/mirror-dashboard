@@ -10,8 +10,11 @@ import { useAppStore } from "@/store/useAppStore";
 import { AuthPage } from "@/pages/AuthPage";
 import { DashboardHome } from "@/pages/DashboardHome";
 import { RunMirrorTestPage } from "@/pages/RunMirrorTestPage";
+import { BulkTestRunnerPage } from "@/pages/BulkTestRunnerPage";
 import { ComparisonViewerPage } from "@/pages/ComparisonViewerPage";
 import { SettingsPage } from "@/pages/SettingsPage";
+import { SingleTestHistoryPage } from "@/pages/SingleTestHistoryPage";
+import { BulkTestHistoryPage } from "@/pages/BulkTestHistoryPage";
 
 const queryClient = new QueryClient();
 
@@ -43,35 +46,65 @@ const App = () => (
             }
           />
           <Route
-            path="/run"
-            element={
-              <ProtectedRoute>
-                <AppShell>
-                  <RunMirrorTestPage />
-                </AppShell>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/compare"
-            element={
-              <ProtectedRoute>
-                <AppShell>
-                  <ComparisonViewerPage />
-                </AppShell>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <ProtectedRoute>
-                <AppShell>
-                  <SettingsPage />
-                </AppShell>
-              </ProtectedRoute>
-            }
-          />
+             path="/run"
+             element={
+               <ProtectedRoute>
+                 <AppShell>
+                   <RunMirrorTestPage />
+                 </AppShell>
+               </ProtectedRoute>
+             }
+           />
+           <Route
+             path="/bulk-run"
+             element={
+               <ProtectedRoute>
+                 <AppShell>
+                   <BulkTestRunnerPage />
+                 </AppShell>
+               </ProtectedRoute>
+             }
+           />
+           <Route
+             path="/compare"
+             element={
+               <ProtectedRoute>
+                 <AppShell>
+                   <ComparisonViewerPage />
+                 </AppShell>
+               </ProtectedRoute>
+             }
+           />
+           <Route
+             path="/settings"
+             element={
+               <ProtectedRoute>
+                 <AppShell>
+                   <SettingsPage />
+                 </AppShell>
+               </ProtectedRoute>
+             }
+           />
+           <Route
+             path="/history/single"
+             element={
+               <ProtectedRoute>
+                 <AppShell>
+                   <SingleTestHistoryPage />
+                 </AppShell>
+               </ProtectedRoute>
+             }
+           />
+           <Route
+             path="/history/bulk"
+             element={
+               <ProtectedRoute>
+                 <AppShell>
+                   <BulkTestHistoryPage />
+                 </AppShell>
+               </ProtectedRoute>
+             }
+           />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
