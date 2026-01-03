@@ -4,20 +4,20 @@ import { JsonDiffViewer } from "@/components/json/JsonDiffViewer";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { exportJson, exportPdfFromJson } from "@/lib/export";
 
 export function ComparisonViewerPage() {
   const [left, setLeft] = useState("{\n  \"env\": \"prod\"\n}");
   const [right, setRight] = useState("{\n  \"env\": \"uat\"\n}");
 
-  const handleExport = () => {
+  const handleExportJson = () => {
     const payload = { left: JSON.parse(left || "{}"), right: JSON.parse(right || "{}") };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "comparison.json";
-    a.click();
-    URL.revokeObjectURL(url);
+    exportJson("comparison.json", payload);
+  };
+
+  const handleExportPdf = () => {
+    const payload = { left: JSON.parse(left || "{}"), right: JSON.parse(right || "{}") };
+    exportPdfFromJson("comparison.pdf", "JSON comparison", payload);
   };
 
   return (
@@ -54,11 +54,16 @@ export function ComparisonViewerPage() {
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-xs text-muted-foreground">
-              Export the current comparison payload as JSON for offline analysis or to attach to bug reports.
+              Export the current comparison payload as JSON or PDF for offline analysis or to attach to bug reports.
             </p>
-            <Button size="sm" variant="outline" onClick={handleExport}>
-              Export diff payload
-            </Button>
+            <div className="space-x-2">
+              <Button size="sm" variant="outline" onClick={handleExportJson}>
+                Export JSON
+              </Button>
+              <Button size="sm" variant="outline" onClick={handleExportPdf}>
+                Export PDF
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </section>
